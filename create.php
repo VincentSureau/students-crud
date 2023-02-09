@@ -1,3 +1,24 @@
+<?php
+
+require_once "database.php";
+
+$email = $_POST['email'] ?? null;
+$firstname = $_POST['firstname'] ?? null;
+$lastname = $_POST['lastname'] ?? null;
+$birthdate = $_POST['birthdate'] ?? null;
+$gender = $_POST['gender'] ?? null;
+
+if(!empty($email) && !empty($lastname) && !empty($firstname) && !empty($gender) && !empty($birthdate)) {
+    $sql = "INSERT INTO `students` (`id`, `lastname`, `firstname`, `gender`, `birthdate`, `email`) VALUES (NULL, '$lastname', '$firstname', '$gender', '$birthdate', '$email');";
+    
+    $studentStatement = $db->prepare($sql);
+    $studentStatement->execute();
+
+    header('Location: index.php');
+    exit;
+}
+
+?>
 <!doctype html>
 <html lang="fr">
   <head>
