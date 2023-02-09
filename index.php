@@ -50,7 +50,7 @@ function format_birthdate($date)
                     <td><?= format_birthdate($student['birthdate']) ?></td>
                     <td><?= $student['email'] ?></td>
                     <td>
-                        <a href="" class="btn btn-sm btn-primary"><i class="fa-regular fa-pen-to-square"></i> Modifier</a>
+                        <a href="create.php?id=<?= $student['id'] ?>" class="btn btn-sm btn-primary"><i class="fa-regular fa-pen-to-square"></i> Modifier</a>
                         <a href="delete.php?id=<?= $student['id'] ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i> Supprimer</a>
                     </td>
                 </tr>
