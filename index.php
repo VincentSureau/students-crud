@@ -1,3 +1,25 @@
+<?php
+try
+{
+    $db = new PDO('mysql:host=localhost;dbname=students_crud;charset=utf8', 'admin', 'adminpwd');
+}
+catch (Exception $e)
+{
+    die('Erreur : ' . $e->getMessage());
+}
+
+$sql = "SELECT * FROM `students`;";
+$studentsStatement = $db->prepare($sql);
+$studentsStatement->execute();
+$students = $studentsStatement->fetchAll();
+
+function format_birthdate($date)
+{
+    $date = new DateTime($date);
+    return $date->format('d/m/Y');
+}
+
+?>
 <!doctype html>
 <html lang="fr">
   <head>
@@ -26,18 +48,20 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach($students as $student): ?>
                 <tr>
-                    <td>1</td>
-                    <td>Nom 1</td>
-                    <td>Prénom 1</td>
-                    <td>Homme</td>
-                    <td>11/07/1997</td>
-                    <td>prenom.nom@example.com</td>
+                    <td><?= $student['id'] ?></td>
+                    <td><?= ucwords($student['lastname']) ?></td>
+                    <td><?= ucwords($student['firstname']) ?></td>
+                    <td><?= ucwords($student['gender']) ?></td>
+                    <td><?= format_birthdate($student['birthdate']) ?></td>
+                    <td><?= $student['email'] ?></td>
                     <td>
                         <a href="" class="btn btn-sm btn-primary"><i class="fa-regular fa-pen-to-square"></i> Modifier</a>
                         <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i> Supprimer</a>
                     </td>
                 </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </main>
